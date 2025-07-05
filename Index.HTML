@@ -1,31 +1,55 @@
-<!DOCTYPE>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta>
-    <meta>
-    <title>chandra jeet table</title>
+    <meta charset="UTF-8">
+    <title>Age Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f6f8; display: flex; flex-direction: column; align-items: center; margin-top: 60px; }
+        .container { background: #fff; padding: 30px 40px; border-radius: 12px; box-shadow: 0 8px 32px 0 rgba(31,38,135,0.15); }
+        h2 { color: #007bff; text-align: center; }
+        label, input { font-size: 16px; }
+        #result { margin-top: 20px; font-size: 18px; color: #222e3c; }
+        button { margin-top: 15px; padding: 8px 20px; font-size: 16px; border-radius: 6px; border: none; background: #007bff; color: #fff; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
 </head>
 <body>
-    <table border="3" width="30%" bgcolor="red" align="center">
-        <th width="40%">name</th>
-        <th width="40%">roll</th>
-        <th width="40%">result</th>
-        <tr width="40%">
-            <td >chandrajeet</td>
-            <td align="center">2</td>
-            <td align="center">pass</td>
-        </tr>
-        <tr width="40%" bgcolor="gren">
-            <td width="red">vishav jeet</td>
-            <td align="center">5</td>
-            <td align="center">pass</td>
-        </tr>
-        <tr width="40%" bgcolor="blue">
-            <td width="blue">indrajeet</td>
-            <td align="center">56</td>
-            <td align="center">pass</td>
-        </tr>
-    </table>
-    
+    <div class="container">
+        <h2>Age Calculator</h2>
+        <label for="dob">Enter your Date of Birth:</label>
+        <input type="date" id="dob">
+        <br>
+        <button onclick="calculateAge()">Calculate Age</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        function calculateAge() {
+            var dob = document.getElementById('dob').value;
+            if (!dob) {
+                document.getElementById('result').innerText = "Please select your date of birth.";
+                return;
+            }
+            var dobDate = new Date(dob);
+            var today = new Date();
+
+            var years = today.getFullYear() - dobDate.getFullYear();
+            var months = today.getMonth() - dobDate.getMonth();
+            var days = today.getDate() - dobDate.getDate();
+
+            if (days < 0) {
+                months--;
+                // Get days in previous month
+                var prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            document.getElementById('result').innerText =
+                "Your Age: " + years + " Years, " + months + " Months, " + days + " Days";
+        }
+    </script>
 </body>
 </html>
